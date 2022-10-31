@@ -39,7 +39,7 @@ public class User {
 	@JoinColumn(name = "document_id", nullable = false)
 	private Document document;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "shoop_id")
+	@JoinColumn(name = "shoop_id", nullable = false)
 	private Shoop shoop;
 	
 	public long getUserId() {
