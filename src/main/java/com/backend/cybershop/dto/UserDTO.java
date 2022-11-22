@@ -1,50 +1,42 @@
-package com.backend.cybershop.entity;
+package com.backend.cybershop.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.backend.cybershop.entity.Document;
+import com.backend.cybershop.entity.Rol;
+import com.backend.cybershop.entity.Shoop;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+public class UserDTO {
 
-@Entity
-@Table(name = "tb_user")
-public class User {
-	@Id
-	@Column(name = "user_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userId;
-	@Column(name = "name_user")
 	private String userNames;
-	@Column(name = "last_name_user")
 	private String userLastName;
-	@Column(name = "phone_user")
 	private String userPhone;
-	@Column(name = "image_user")
 	private String userImage;
-	@Column(name = "nickname_user")
 	private String userNickName;
-	@Column(name = "password_user")
 	private String password;
-	@Column(name = "doc_number_user")
 	private String dniNumber;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "rol_id", nullable = false)
 	private Rol userRol;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "document_id", nullable = false)
 	private Document document;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "shoop_id", nullable = false)
 	private Shoop shoop;
+
+	public UserDTO() {
+		super();
+	}
+
+	public UserDTO(long userId, String userNames, String userLastName, String userPhone, String userImage,
+			String userNickName, String password, String dniNumber, Rol userRol, Document document, Shoop shoop) {
+		super();
+		this.userId = userId;
+		this.userNames = userNames;
+		this.userLastName = userLastName;
+		this.userPhone = userPhone;
+		this.userImage = userImage;
+		this.userNickName = userNickName;
+		this.password = password;
+		this.dniNumber = dniNumber;
+		this.userRol = userRol;
+		this.document = document;
+		this.shoop = shoop;
+	}
 
 	public long getUserId() {
 		return userId;
@@ -133,4 +125,5 @@ public class User {
 	public void setShoop(Shoop shoop) {
 		this.shoop = shoop;
 	}
+
 }
