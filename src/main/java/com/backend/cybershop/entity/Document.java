@@ -13,6 +13,7 @@ package com.backend.cybershop.entity;
 	import javax.persistence.Table;
 	
 	import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_document")
@@ -24,7 +25,7 @@ public class Document {
 	@Column(name = "description_document")
 	private String description;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<User> users = new HashSet<>();
 
