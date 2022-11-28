@@ -13,6 +13,23 @@ public class RegisterUserDTO {
 	private int rolId;
 	private boolean enabled;
 	
+	public RegisterUserDTO() {}
+	
+	public RegisterUserDTO(String docNumber, String password, String image, String lastName, String firstName,
+			String userName, String phone, int documentId, int shoopId, int rolId, boolean enabled) {
+		super();
+		this.docNumber = docNumber;
+		this.password = password;
+		this.image = image;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.userName = userName;
+		this.phone = phone;
+		this.documentId = documentId;
+		this.shoopId = shoopId;
+		this.rolId = rolId;
+		this.enabled = enabled;
+	}
 	public String getDocNumber() {
 		return docNumber;
 	}
