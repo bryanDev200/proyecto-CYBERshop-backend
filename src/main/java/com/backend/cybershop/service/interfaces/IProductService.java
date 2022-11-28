@@ -9,5 +9,5 @@ import com.backend.cybershop.entity.Product;
 public interface IProductService {
 	public ProductDTO saveProduct();
 	public Product getProductById(long id);
-	public List<ProductListItemDTO> getAllProducts(String names, long id);
+	public List<ProductListItemDTO> getAllProducts(String names, int id);
 }

@@ -33,7 +33,7 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public List<ProductListItemDTO> getAllProducts(String names, long id) {
+	public List<ProductListItemDTO> getAllProducts(String names, int id) {
 		List<ProductListItemDTO> data = repo.getAllProducts(names, id).stream()
 				.map((product) -> new ProductListItemDTO((int)product.getProductId(),
 						product.getProductName(), product.getProductPrice(),
