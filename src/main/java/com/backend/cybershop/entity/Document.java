@@ -28,6 +28,13 @@ public class Document {
 	@JsonIgnore
 	@OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<User> users = new HashSet<>();
+	
+	public Document(long documentId) {
+		super();
+		this.documentId = documentId;
+	}
+	
+	public Document() {}
 
 	public long getDocumentId() {
 		return documentId;

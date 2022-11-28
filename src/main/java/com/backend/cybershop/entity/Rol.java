@@ -18,7 +18,6 @@ import javax.persistence.ManyToOne;
 	import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_rol")
@@ -32,16 +31,22 @@ public class Rol {
 	@Column(name = "rol_description")
 	private String rolDescription;
 	
-	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "userRol", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<User> users = new HashSet<>();
-	
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "role_permission",
 				joinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "rol_id"), 
 			   inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "permission_id"))
 	private Set<Permission> permissions = new HashSet<>();
+	
+	public Rol() {}
+	
+	public Rol(long rolId) {
+		super();
+		this.rolId = rolId;
+	}
 
 	public long getRolId() {
 		return rolId;
