@@ -19,8 +19,6 @@ public class Order {
 	@Column(name = "order_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long orderId;
-	@Column(name = "order_number")
-	private int orderNumber;
 	@Column(name = "order_date")
 	private Date orderDate;
 	@Column(name = "order_state")
@@ -28,30 +26,29 @@ public class Order {
 	@Column(name = "final_amount")
 	private double finalAmount;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "shoop_id", nullable = false)
 	private Shoop shoop;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "payment_id", nullable = false)
 	private Payment payment;
 	
+	public Order() {}
+	
+	public Order(long orderId) {
+		super();
+		this.orderId = orderId;
+	}
+
 	public long getOrderId() {
 		return orderId;
 	}
 	
 	public void setOrderId(long orderId) {
 		this.orderId = orderId;
-	}
-	
-	public int getOrderNumber() {
-		return orderNumber;
-	}
-	
-	public void setOrderNumber(int orderNumber) {
-		this.orderNumber = orderNumber;
 	}
 	
 	public Date getOrderDate() {

@@ -43,6 +43,13 @@ public class Product {
 	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ProductImage> images = new HashSet<>();
 	
+	public Product() {}
+	
+	public Product(long productId) {
+		super();
+		this.productId = productId;
+	}
+
 	public long getProductId() {
 		return productId;
 	}
