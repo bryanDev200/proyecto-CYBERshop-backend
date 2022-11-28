@@ -104,4 +104,9 @@ public class UsuarioService implements IUsuarioService {
 						user.getUserLastName(), user.getUserRol().getRolDescription())).collect(Collectors.toList());
 		return data;
 	}
+
+	@Override
+	public User getUserByUsername(String userNickName) {
+		return repo.findByUserNickName(userNickName).get();
+	}
 }

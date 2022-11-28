@@ -13,4 +13,5 @@ public interface IUsuarioService {
 	public String deleteUser(long id);
 	public User getUserById(long id);
 	public List<UserListItemDTO> getAllUsers(String names, int roleId, int shoopId);
+	public User getUserByUsername(String userNickName);
 }

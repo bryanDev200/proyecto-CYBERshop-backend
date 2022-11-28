@@ -46,6 +46,13 @@ public class User {
 	@JoinColumn(name = "shoop_id", nullable = false)
 	private Shoop shoop;
 	
+	public User() {}
+	
+	public User(long userId) {
+		super();
+		this.userId = userId;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
