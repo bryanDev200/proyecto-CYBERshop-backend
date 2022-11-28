@@ -1,7 +1,13 @@
 package com.backend.cybershop.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.backend.cybershop.dto.RegisterUserDTO;
 import com.backend.cybershop.dto.RegisterUserResponseDTO;
 import com.backend.cybershop.dto.UserListItemDTO;
+import com.backend.cybershop.entity.ProductImage;
 import com.backend.cybershop.entity.User;
 import com.backend.cybershop.service.interfaces.IUsuarioService;
 
@@ -59,7 +67,19 @@ public class UserController {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable int id){
 		HashMap<String, Object> response = new HashMap<>();
+		
+		User user = userService.getUserById(id);
 		String messageDeleted= userService.deleteUser(id);
+		
+		String nameLastImage = user.getUserImage();
+		
+		if(nameLastImage != null && nameLastImage.length() > 0) {
+			Path lastFilePath = Paths.get("uploads").resolve(nameLastImage).toAbsolutePath();
+			File fileLastImage = lastFilePath.toFile();
+			if(fileLastImage.exists() && fileLastImage.canRead()) {
+				fileLastImage.delete();
+			}
+		}
 		
 		response.put("message", messageDeleted);
 
@@ -91,5 +111,47 @@ public class UserController {
 		response.put("data", data);
 		
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@PostMapping("/upload")
+	public ResponseEntity<?> uploadUserImage(@RequestParam("file") MultipartFile file,
+												@RequestParam("id") int id){
+		HashMap<String, Object> response = new HashMap<>();
+
+		User user = userService.getUserById(id);
+		
+		if(!file.isEmpty()) {
+			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename().replace(" ", "");
+			Path filePath = Paths.get("uploads").resolve(fileName).toAbsolutePath();
+			
+			try {
+				Files.copy(file.getInputStream(), filePath);
+			} catch (IOException e) {
+				response.put("message", "Error al cargar la imagen");
+				return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			String nameLastImage = user.getUserImage();
+			
+			if(nameLastImage != null && nameLastImage.length() > 0) {
+				Path lastFilePath = Paths.get("uploads").resolve(nameLastImage).toAbsolutePath();
+				File fileLastImage = lastFilePath.toFile();
+				if(fileLastImage.exists() && fileLastImage.canRead()) {
+					fileLastImage.delete();
+				}
+			}
+			
+			user.setUserImage(fileName);
+			
+			RegisterUserDTO dto = new RegisterUserDTO(user.getDniNumber(), user.getPassword(), user.getUserImage(),
+					user.getUserLastName(), user.getUserNames(), user.getUserNickName(), user.getUserPhone(),
+					(int)user.getDocument().getDocumentId(), (int)user.getShoop().getShoopId(), 
+					(int)user.getUserRol().getRolId(), user.isEnabled());
+
+			userService.updateUser(dto, id);
+			
+			response.put("message", "imagen cargada correctamente");
+		}
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 }
