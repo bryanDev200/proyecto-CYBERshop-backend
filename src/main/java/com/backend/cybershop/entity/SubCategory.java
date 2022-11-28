@@ -24,6 +24,13 @@ public class SubCategory {
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
+	public SubCategory() {}
+	
+	public SubCategory(long subCategoryId) {
+		super();
+		this.subCategoryId = subCategoryId;
+	}
+
 	public long getSubCategoryId() {
 		return subCategoryId;
 	}

@@ -34,6 +34,13 @@ public class Supplier {
 	@OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Product> products = new HashSet<>();
 
+	public Supplier() {}
+	
+	public Supplier(long supplierId) {
+		super();
+		this.supplierId = supplierId;
+	}
+
 	public long getSupplierId() {
 		return supplierId;
 	}
