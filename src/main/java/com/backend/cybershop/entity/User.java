@@ -32,7 +32,6 @@ public class User {
 	@Column(name = "password_user")
 	private String password;
 	@Column(name = "doc_number_user")
-<<<<<<< HEAD
 	private String dniNumber;	
 	@Column(name = "enabled")
 	private boolean enabled;
@@ -54,21 +53,6 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-=======
-	private String dniNumber;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "rol_id", nullable = false)
-	private Rol userRol;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "document_id", nullable = false)
-	private Document document;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "shoop_id", nullable = false)
-	private Shoop shoop;
->>>>>>> cf0e39efa6ed7b080680e5d5d51826abb6d5d794
 
 	public long getUserId() {
 		return userId;

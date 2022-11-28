@@ -12,11 +12,7 @@ package com.backend.cybershop.entity;
 	import javax.persistence.OneToMany;
 	import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-<<<<<<< HEAD
-=======
-import com.fasterxml.jackson.annotation.JsonIgnore;
->>>>>>> cf0e39efa6ed7b080680e5d5d51826abb6d5d794
+	import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "tb_shoop")
@@ -34,11 +30,7 @@ public class Shoop {
 	@Column(name = "shoop_number")
 	private int shoopNumber;
 	
-<<<<<<< HEAD
 	@JsonBackReference
-=======
-	@JsonIgnore
->>>>>>> cf0e39efa6ed7b080680e5d5d51826abb6d5d794
 	@OneToMany(mappedBy = "shoop", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<User> users = new HashSet<>();
 	
