@@ -1,5 +1,7 @@
 package com.backend.cybershop.entity;
 
+	import java.util.Date;
+
 	import javax.persistence.Column;
 	import javax.persistence.Entity;
 	import javax.persistence.FetchType;
@@ -20,15 +22,11 @@ public class Order {
 	@Column(name = "order_number")
 	private int orderNumber;
 	@Column(name = "order_date")
-	private String orderDate;
+	private Date orderDate;
 	@Column(name = "order_state")
 	private String orderState;
 	@Column(name = "final_amount")
 	private double finalAmount;
-	@Column(name = "creation_date")
-	private String creationDate;
-	@Column(name = "creation_user")
-	private String creationUser;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "shoop_id", nullable = false)
@@ -56,11 +54,11 @@ public class Order {
 		this.orderNumber = orderNumber;
 	}
 	
-	public String getOrderDate() {
+	public Date getOrderDate() {
 		return orderDate;
 	}
 	
-	public void setOrderDate(String orderDate) {
+	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 	
@@ -78,22 +76,6 @@ public class Order {
 	
 	public void setFinalAmount(double finalAmount) {
 		this.finalAmount = finalAmount;
-	}
-	
-	public String getCreationDate() {
-		return creationDate;
-	}
-	
-	public void setCreationDate(String creationDate) {
-		this.creationDate = creationDate;
-	}
-	
-	public String getCreationUser() {
-		return creationUser;
-	}
-	
-	public void setCreationUser(String creationUser) {
-		this.creationUser = creationUser;
 	}
 	
 	public Shoop getShoop() {
